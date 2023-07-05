@@ -8,12 +8,12 @@ long double s21_exp(double x) {
     return 0.0;
   } else {
     double term = 1.0;
-
-    for (int i = 1; i <= 10; ++i) {
-        term *= x / i;
-        result += term;
+    int i = 1;
+    while (s21_fabs(term) >= EPS) {
+      term *= x / i;
+      result += term;
+      i++;
     }
   }
-
   return result;
 }
