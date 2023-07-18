@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-07-18 23:34:04</td>
+            <td class="headerValue">2023-07-19 01:18:44</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -64,10 +64,10 @@
 <a name="2"><span class="lineNum">       2 </span>            : </a>
 <a name="3"><span class="lineNum">       3 </span>            : #define S21_LN2 0.693147180559945309417232121458176568</a>
 <a name="4"><span class="lineNum">       4 </span>            : </a>
-<a name="5"><span class="lineNum">       5 </span><span class="lineCov">     253617 : long double s21_log(double x) {</span></a>
-<a name="6"><span class="lineNum">       6 </span><span class="lineCov">     253617 :   long double result = 0.0;</span></a>
-<a name="7"><span class="lineNum">       7 </span><span class="lineCov">     253617 :   if (!x || s21_fabs(x) &lt; s21_EPS)</span></a>
-<a name="8"><span class="lineNum">       8 </span><span class="lineCov">         19 :     result = -S21_INF;</span></a>
+<a name="5"><span class="lineNum">       5 </span><span class="lineCov">     253616 : long double s21_log(double x) {</span></a>
+<a name="6"><span class="lineNum">       6 </span><span class="lineCov">     253616 :   long double result = 0.0;</span></a>
+<a name="7"><span class="lineNum">       7 </span><span class="lineCov">     253616 :   if (!x || s21_fabs(x) &lt; s21_EPS)</span></a>
+<a name="8"><span class="lineNum">       8 </span><span class="lineCov">         18 :     result = -S21_INF;</span></a>
 <a name="9"><span class="lineNum">       9 </span><span class="lineCov">     253598 :   else if (S21_IS_INF(x) == 1)</span></a>
 <a name="10"><span class="lineNum">      10 </span><span class="lineCov">          3 :     result = S21_INF;</span></a>
 <a name="11"><span class="lineNum">      11 </span><span class="lineCov">     253595 :   else if (x == 2)</span></a>
@@ -99,7 +99,7 @@
 <a name="37"><span class="lineNum">      37 </span><span class="lineCov">        112 :       result = how_much * S21_LN2 + s21_log(x);</span></a>
 <a name="38"><span class="lineNum">      38 </span>            :     }</a>
 <a name="39"><span class="lineNum">      39 </span>            :   }</a>
-<a name="40"><span class="lineNum">      40 </span><span class="lineCov">     253617 :   return result;</span></a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineCov">     253616 :   return result;</span></a>
 <a name="41"><span class="lineNum">      41 </span>            : }</a>
 </pre>
       </td>

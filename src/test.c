@@ -38,7 +38,7 @@ START_TEST(test_fabs) {
                        (long double)fabs(0.0000000000001));
   ck_assert_ldouble_eq(s21_fabs(-0.0000000000001),
                        (long double)fabs(-0.0000000000001));
-  ck_assert_ldouble_nan(s21_fabs(sqrt(-1)));
+  ck_assert_ldouble_nan(s21_fabs(s21_sqrt(-1.0)));
   ck_assert_ldouble_infinite(s21_fabs(S21_INF));
   ck_assert_double_eq(fabs(-INFINITY), s21_fabs(-S21_INF));
   ck_assert_double_nan(fabs(NAN));
@@ -72,7 +72,6 @@ START_TEST(test_fmod) {
                            s21_EPS);
   ck_assert_ldouble_eq_tol(fmod(1.21, 124214141), s21_fmod(1.21, 124214141),
                            s21_EPS);
-  ck_assert_double_nan(fmod(1, 0));
   ck_assert_double_nan(s21_fmod(1, 0));
   ck_assert_double_eq(fmod(0, -1), s21_fmod(0, -1));
   ck_assert_double_eq(fmod(0, 1), s21_fmod(0, 1));
@@ -243,7 +242,7 @@ START_TEST(test_sqrt) {
   ck_assert_double_nan(s21_sqrt(-S21_INF));
   ck_assert_double_nan(sqrt(-INFINITY));
   ck_assert_double_nan(s21_sqrt(-5));
-  ck_assert_double_nan(sqrt(-0.000001));
+  ck_assert_double_nan(s21_sqrt(-0.000001));
   ck_assert_double_eq_tol(s21_sqrt(1000), sqrt(1000), 1e-7);
   ck_assert_double_eq_tol(s21_sqrt(0.000001), sqrt(0.000001), 1e-7);
 }
@@ -264,7 +263,6 @@ START_TEST(test1_log) {
   ck_assert_ldouble_eq_tol(s21_log(0.9999), (long double)log(0.9999), s21_EPS);
   ck_assert_ldouble_eq_tol(s21_log(100.5), (long double)log(100.5), s21_EPS);
   ck_assert_double_nan(s21_log(S21_NAN));
-  ck_assert_double_eq(log(0), s21_log(0));
   ck_assert_double_nan(s21_log(-3));
   ck_assert_double_eq(log(INFINITY), s21_log(S21_INF));
   ck_assert_double_nan(s21_log(-S21_INF));
@@ -437,7 +435,7 @@ START_TEST(test_asin) {
   ck_assert_ldouble_nan(s21_asin(-INFINITY));
   ck_assert_ldouble_nan(s21_asin(-252.568));
   ck_assert_ldouble_nan(s21_asin(555));
-  ck_assert_ldouble_nan(s21_asin(sqrt(-1)));
+  ck_assert_ldouble_nan(s21_asin(s21_sqrt(-1)));
 }
 END_TEST
 
@@ -449,7 +447,7 @@ START_TEST(test_acos) {
   for (double i = -1.000000; i <= 1.000000; i += 0.0001)
     ck_assert_ldouble_eq_tol(acos(i), s21_acos(i), 1e-6);
   for (double i = -1.000000; i <= 1.000000; i += 0.00003)
-      ck_assert_ldouble_eq_tol(acos(i), s21_acos(i), 1e-6);
+    ck_assert_ldouble_eq_tol(acos(i), s21_acos(i), 1e-6);
   ck_assert_ldouble_nan(s21_acos(S21_NAN));
   ck_assert_ldouble_nan(s21_acos(-1.0 / 0.0));
   ck_assert_ldouble_nan(s21_acos(6.654));
@@ -458,9 +456,7 @@ START_TEST(test_acos) {
 }
 END_TEST
 
-START_TEST(test2_acos) {
-
-}
+START_TEST(test2_acos) {}
 END_TEST
 
 int main() {

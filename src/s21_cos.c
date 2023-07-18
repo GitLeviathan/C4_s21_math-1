@@ -4,7 +4,8 @@ long double s21_cos(double x) {
   long double result = 0.0;
   if (S21_IS_NAN(x) || S21_IS_INF(x) || S21_IS_INF(x) == -1) {
     result = S21_NAN;
-  } else if (s21_fabs(x) < s21_EPS) return 1.0L;
+  } else if (s21_fabs(x) < s21_EPS)
+    result = 1.0L;
   else {
     for (; x < -2 * s21_PI || x > 2 * s21_PI;) {
       if (x > 2 * s21_PI) {

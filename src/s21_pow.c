@@ -14,12 +14,19 @@ long double s21_pow(double base, double exp) {
   else if (exp == 1.0)
     result = base;  // Any number raised to power 1 is itself
   else if (base == S21_INF) {
-    result = (exp > 0.0) ? S21_INF : 0.0;  // infinity^positive = infinity, infinity^negative = 0
+    result = (exp > 0.0)
+                 ? S21_INF
+                 : 0.0;  // infinity^positive = infinity, infinity^negative = 0
   } else if (base == -S21_INF) {
     if (exp > 0.0) {
-      result = (s21_floor(exp) == exp && (long long)exp % 2 == 1) ? -S21_INF : S21_INF;  // (-infinity)^odd = -infinity, (-infinity)^even = infinity
+      result = (s21_floor(exp) == exp && (long long)exp % 2 == 1)
+                   ? -S21_INF
+                   : S21_INF;  // (-infinity)^odd = -infinity, (-infinity)^even
+                               // = infinity
     } else {
-      result = (s21_floor(exp) == exp && (long long)exp % 2 == -1) ? -0.0 : 0.0;  // (-infinity)^odd = -0, (-infinity)^even = 0
+      result = (s21_floor(exp) == exp && (long long)exp % 2 == -1)
+                   ? -0.0
+                   : 0.0;  // (-infinity)^odd = -0, (-infinity)^even = 0
     }
   } else if (base < 0.0 && s21_fmod(exp, 1.0) != 0.0) {
     result = S21_NAN;  // Negative base and non-integer exponent
