@@ -2,12 +2,8 @@
 
 long double s21_sin(double x) {
   long double result = 0.0;
-  if (s21_isnan(x)) {
-    result = s21_NAN;
-  } else if (x == 0.) {
-    result = 0.;
-  } else if (s21_isinf(x)) {
-    result = s21_NAN;
+  if (S21_IS_NAN(x) || S21_IS_INF(x)) {
+    result = S21_NAN;
   } else {
     while (x > s21_PI) {
       x -= 2 * s21_PI;

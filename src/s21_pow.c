@@ -1,93 +1,32 @@
 #include "s21_math.h"
-#include <math.h>
-#include <stdio.h>
 
-long double s21_pow(double base, double exponent) {
-  if (s21_isnan(base) || s21_isnan(exponent))
-    return s21_NAN;  // NaN^x or x^NaN = NaN
+long double s21_pow(double base, double exp) {
+  long double result = 0.0;
 
-  if (base == 1.0)
-    return 1.0;  // 1 raised to any power is 1
-
-  if (exponent == 0.0)
-    return 1.0;  // Any number raised to power 0 is 1
-
-  if (exponent == 1.0)
-    return base;  // Any number raised to power 1 is itself
-
-  if (base == INFINITY) {
-    if (exponent > 0.0)
-      return INFINITY;  // infinity^positive = infinity
-    else
-      return 0.0;  // infinity^negative = 0
-  }
-
-  if (base == -INFINITY) {
-    if (exponent > 0.0) {
-      if (s21_floor(exponent) == exponent && (long long)exponent % 2 == 1)
-        return -INFINITY;  // (-infinity)^odd = -infinity
-      else
-        return INFINITY;  // (-infinity)^even = infinity
+  if (S21_IS_NAN(base) || S21_IS_NAN(exp))
+    result = S21_NAN;  // NaN^x or x^NaN = NaN
+  else if (s21_fabs(base) == 1.0L && S21_IS_INF(exp))
+    result = 1.0L;
+  else if (base == 1.0)
+    result = 1.0;  // 1 raised to any power is 1
+  else if (exp == 0.0)
+    result = 1.0;  // Any number raised to power 0 is 1
+  else if (exp == 1.0)
+    result = base;  // Any number raised to power 1 is itself
+  else if (base == S21_INF) {
+    result = (exp > 0.0) ? S21_INF : 0.0;  // infinity^positive = infinity, infinity^negative = 0
+  } else if (base == -S21_INF) {
+    if (exp > 0.0) {
+      result = (s21_floor(exp) == exp && (long long)exp % 2 == 1) ? -S21_INF : S21_INF;  // (-infinity)^odd = -infinity, (-infinity)^even = infinity
     } else {
-      if (s21_floor(exponent) == exponent && (long long)exponent % 2 == 1)
-        return -0.0;  // (-infinity)^odd = -0
-      else
-        return 0.0;  // (-infinity)^even = 0
+      result = (s21_floor(exp) == exp && (long long)exp % 2 == -1) ? -0.0 : 0.0;  // (-infinity)^odd = -0, (-infinity)^even = 0
     }
-  }
-  if (base < 0.0) {
-    if (exponent == -INFINITY)
-        return 0.0;
-    else if (exponent == INFINITY)
-        return INFINITY;
+  } else if (base < 0.0 && s21_fmod(exp, 1.0) != 0.0) {
+    result = S21_NAN;  // Negative base and non-integer exponent
+  } else {
+    result = s21_exp(exp * s21_log(s21_fabs(base)));
+    if ((base < 0.0 && s21_fmod(exp, 2) == 1)) result *= -1;
   }
 
-  return exp(exponent * log(base));  // Compute power using exponentiation identity
+  return result;
 }
-
-
-/*long double s21_pow(double base, double exponent) {
-  if (base == 0.0) {
-    if (exponent == 0.0)
-      return 1.0;  // 0^0 = 1 by convention
-    else if (exponent > 0.0)
-      return 0.0;  // 0^positive = 0
-    else
-      return INFINITY;  // 0^negative = infinity
-  }
-
-  if (base == 1.0)
-    return 1.0;  // 1 raised to any power is 1
-
-  if (s21_isnan(base) || s21_isnan(exponent))
-    return NAN;  // NaN^x or x^NaN = NaN
-
-  if (exponent == 0.0)
-    return 1.0;  // Any number raised to power 0 is 1
-
-  if (exponent == 1.0)
-    return base;  // Any number raised to power 1 is itself
-
-  if (base == INFINITY) {
-    if (exponent > 0.0)
-      return INFINITY;  // infinity^positive = infinity
-    else
-      return 0.0;  // infinity^negative = 0
-  }
-
-  if (base == -INFINITY) {
-    if (exponent > 0.0) {
-      if (s21_floor(exponent) == exponent && (long long)exponent % 2 == 1)
-        return -INFINITY;  // (-infinity)^odd = -infinity
-      else
-        return INFINITY;  // (-infinity)^even = infinity
-    } else {
-      if (s21_floor(exponent) == exponent && (long long)exponent % 2 == 1)
-        return -0.0;  // (-infinity)^odd = -0
-      else
-        return 0.0;  // (-infinity)^even = 0
-    }
-  }
-
-  return exp(exponent * log(base));  // Compute power using exponentiation identity
-}*/
