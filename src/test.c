@@ -456,9 +456,6 @@ START_TEST(test_acos) {
 }
 END_TEST
 
-START_TEST(test2_acos) {}
-END_TEST
-
 int main() {
   Suite *suite = suite_create("Test Suite");
   TCase *tc = tcase_create("Test Cases");
@@ -481,15 +478,12 @@ int main() {
   tcase_add_test(tc, test_atan);
   tcase_add_test(tc, test_asin);
   tcase_add_test(tc, test_acos);
-  tcase_add_test(tc, test2_acos);
   suite_add_tcase(suite, tc);
 
   SRunner *runner = srunner_create(suite);
   srunner_run_all(runner, CK_NORMAL);
   int failures = srunner_ntests_failed(runner);
   srunner_free(runner);
-
-  printf("%Lf \n\n", s21_cos(-s21_PI));
 
   return (failures == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
